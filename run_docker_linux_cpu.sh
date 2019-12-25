@@ -24,4 +24,3 @@ if [ -f $configfile ]; then
 else	
 	echo "Error: Configuration file not found in the provided path"
 fi
-
