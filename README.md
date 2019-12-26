@@ -14,17 +14,14 @@ chmod +x scripts/install_docker.sh && source scripts/install_docker.sh
 ```
 
 ##### Usage with NVIDIA Docker for GPU training
-- Install NVIDIA Drivers and NVIDIA Docker for GPU training by following the [official docs](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0))
-
+Install NVIDIA Drivers and NVIDIA Docker for GPU training by following the [official docs](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)).
 ## Prepare Docker images
 Once your environment is ready, you can prepare the docker images needed.
 The environment is dockerized to run on GPU or CPU.
-
 ##### Include GPU usage
 ```bash
 sudo docker build -f docker/Dockerfile -t darknet_yolo_gpu:1 --build-arg GPU=1 --build-arg CUDNN=1 --build-arg CUDNN_HALF=0 --build-arg OPENCV=1 .
 ```
-
 ##### Include CPU-only usage
 ```bash
 sudo docker build -f docker/Dockerfile -t darknet_yolo_cpu:1 --build-arg GPU=0 --build-arg CUDNN=0 --build-arg CUDNN_HALF=0 --build-arg OPENCV=1 .
@@ -40,7 +37,6 @@ You can also provide your own `train.txt` and `test.txt` to specify which images
 ```bash
 chmod +x *.sh && ./run_docker_linux_gpu.sh
 ```
-
 ##### Run training including CPU-only usage
 ```bash
 chmod +x *.sh && ./run_docker_linux_cpu.sh
@@ -52,7 +48,7 @@ The script will ask for 2 main inputs:
 Once given, the training will start and you can stop it at any time by pressing CTRL+C inside the open terminal.
 Closing the terminal will result in stopping the running container.
 
-### Training output
+## Training output
 Inside `trainings` you can find a folder with the naming convention `<container_name>_<training_start_time>`.
 For example, it can be `dogs-dataset_20191110_14:21:41`. Inside this folder you will have the following structure:
 ```
@@ -92,15 +88,13 @@ A custom REST API including Swagger API will be started during training process.
 #### Tensorboard
 Loss and mAP can be visualized through Tensorboard.
 The interface can be accessed on port _6006_ (or a custom port you can set inside `training/tensorboard/port`).
-![](tensorboard.png)
 
 #### AlexeyAB provided web_ui
 This can be enabled by setting `training/web_ui/enable` to `true` in the `train_config.json` you provide during the training.
-It can later on be access through port _8090_ (or a custom port you can set inside `training/web_ui/port`) and looks like the following:
-![Training monitoring - web_ui](https://camo.githubusercontent.com/d60dfdba6c007a5df888747c2c03664c91c12c1e/68747470733a2f2f6873746f2e6f72672f776562742f79642f766c2f61672f7964766c616775746f66327a636e6a6f64737467726f656e3861632e6a706567)
+It can later on be access through port _8090_ (or a custom port you can set inside `training/web_ui/port`).
 
 ## Training config (meaning)
-An explanation of the different fields can be found in the JSON schema of the provided config, which can be found at `config/train_config_schema.json`
+An explanation of the different fields can be found in the JSON schema of the provided config, which can be found at `config/train_config_schema.json`.
 Some of the elements are specific to YOLO itself - like saturation, hue, rotation, max_batches and so on.
 Those are greatly explained by AlexeyAB in [his Darknet fork](https://github.com/AlexeyAB/darknet).
 
@@ -119,7 +113,6 @@ wget https://pjreddie.com/media/files/yolov3-tiny.weights -P config/darknet/yolo
 
 ## Known Issues
 Issue related to darknet itself can be filed in [the correct repo](https://github.com/AlexeyAB/darknet).  We did not make any changes to the darknet code itself.
-- If you chose to build with GPU but in the configuration file did not provide "gpus" field, the training will run on gpu 0 by default
-- If during training you see nan values for avg (loss) field - then training goes wrong, but if nan is in some other lines - then training goes well.
-- If error Out of memory occurs then you should try increasing subdivisions to 16, 32 or 64 or have a smaller image size.
-- If training finishes immediately without any error you should decrease batch size and subdivisions.
+    - If you chose to build with GPU usage but did not provide `gpus` field in the configuration file, the training will run on gpu 0 by default.
+    - If the error `out of memory` occurs, you should try to increase the subdivisions to 16, 32 or 64 or use a smaller image size.
+    - If training finishes immediately without any error, you should decrease batch size and subdivisions.

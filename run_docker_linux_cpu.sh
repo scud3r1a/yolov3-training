@@ -20,7 +20,8 @@ if [ -f $configfile ]; then
 		web_ui_port=`jq .training.web_ui.port $configfile`
 		ports="$ports -p $web_ui_port:8090"
 	fi
-	sudo docker run --rm --runtime=nvidia -it -e TRAIN_NAME=$container_name -e TRAIN_START_TIME="$(date '+%Y%m%d_%H:%M:%S')" $ports -v $folder_path:/training/assets -v $(pwd)/trainings:/training/custom_training -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro --name $container_name darknet_yolo_cpu:1 ; 
+	# --runtime=nvidia
+	sudo docker run --rm -it -e TRAIN_NAME=$container_name -e TRAIN_START_TIME="$(date '+%Y%m%d_%H:%M:%S')" $ports -v $folder_path:/training/assets -v $(pwd)/trainings:/training/custom_training -v /etc/timezone:/etc/timezone:ro -v /etc/localtime:/etc/localtime:ro --name $container_name darknet_yolo_cpu:1 ; 
 else	
 	echo "Error: Configuration file not found in the provided path"
 fi
