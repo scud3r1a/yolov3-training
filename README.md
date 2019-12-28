@@ -1,5 +1,6 @@
 # YOLO v3 Training Automation API for Linux
 This repository allows you to automate the training process for a YOLO v3 object detector with little to no configuration needed!  After providing a labeled dataset, the training can be started and monitored in many different ways, e. g. with Tensorboard or a custom API that comes with the software project.
+
 ![Logo](logo.png)
 
 ## Prerequisites
