@@ -1,3 +1,5 @@
+*.xcf
+
 # YOLO weights
 *.weights
 *.conv.*
