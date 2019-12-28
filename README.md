@@ -1,4 +1,7 @@
-# YOLO v3 Training Automation API for Linux
+# YOLO v3 Training Automation for Linux :whale:
+![docker](https://img.shields.io/badge/Docker-18.09.0-blue.svg)
+![python](https://img.shields.io/badge/Python-3.7.3-yellow.svg)
+
 This repository allows you to automate the training process for a YOLO v3 object detector with little to no configuration needed!  After providing a labeled dataset, the training can be started and monitored in many different ways, e. g. with Tensorboard or a custom API that comes with the software project.
 
 ![Logo](logo.png)
@@ -114,6 +117,6 @@ wget https://pjreddie.com/media/files/yolov3-tiny.weights -P config/darknet/yolo
 
 ## Known Issues
 Issue related to darknet itself can be filed in [the correct repo](https://github.com/AlexeyAB/darknet).  We did not make any changes to the darknet code itself.
-    - If you chose to build with GPU usage but did not provide `gpus` field in the configuration file, the training will run on gpu 0 by default.
-    - If the error `out of memory` occurs, you should try to increase the subdivisions to 16, 32 or 64 or use a smaller image size.
-    - If training finishes immediately without any error, you should decrease batch size and subdivisions.
+- If you chose to build with GPU usage but did not provide `gpus` field in the configuration file, the training will run on gpu 0 by default.
+- If the error `out of memory` occurs, you should try to increase the subdivisions to 16, 32 or 64 or use a smaller image size.
+- If training finishes immediately without any error, you should decrease batch size and subdivisions.
